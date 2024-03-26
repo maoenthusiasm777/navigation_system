@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11 -O3 -DNDEBUG  -rdynamic CMakeFiles/exp3.dir/exp3.cpp.o  -o exp3 

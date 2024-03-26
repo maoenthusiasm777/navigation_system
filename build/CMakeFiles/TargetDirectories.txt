@@ -1,0 +1,4 @@
+/home/mdk/inti_navi/exp3/build/CMakeFiles/rebuild_cache.dir
+/home/mdk/inti_navi/exp3/build/CMakeFiles/edit_cache.dir
+/home/mdk/inti_navi/exp3/build/CMakeFiles/couple.dir
+/home/mdk/inti_navi/exp3/build/CMakeFiles/exp3.dir
