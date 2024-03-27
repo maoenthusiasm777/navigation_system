@@ -1,5 +1,5 @@
 cmake_minimum_required( VERSION 2.8 )
-project( exp3 )
+project( st_ekf_proj )
 
 set( CMAKE_BUILD_TYPE "Release" )
 #set( CMAKE_CXX_FLAGS "-O3" )

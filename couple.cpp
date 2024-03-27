@@ -8,6 +8,8 @@
 #include <string>
 #include <iomanip>
 
+#include "rotation.h"
+
 using namespace Eigen;
 
 static double omega = 7.292115 * 1E-5;   // rad / s
@@ -25,51 +27,6 @@ static double g=9.7803267711905*(1+0.00193185138639*(sin(Lat0))*(sin(Lat0)))
 Vector3d gn(0,0,g);
 // From odometry frame to body system.
 Matrix3d cmb;
-
-Matrix3d CrossMat(const Vector3d& vec) {
-    Matrix3d cross_vec;
-    cross_vec << 0,-vec.z(),vec.y(),
-                 vec.z(),0,-vec.x(),
-                 -vec.y(),vec.x(),0;
-    return cross_vec;
-}
-
-Matrix3d EulerAngleToRotion (const Vector3d& euler_angle) {
-    Matrix3d a;
-    a<< 1,0,0,
-        0,cos(euler_angle(2)*M_PI/180),sin(euler_angle(2)*M_PI/180),
-        0,-sin(euler_angle(2)*M_PI/180),cos(euler_angle(2)*M_PI/180);
-    Matrix3d b;
-    b<< cos(euler_angle(1)*M_PI/180),0,-sin(euler_angle(1)*M_PI/180),
-        0,1,0,
-        sin(euler_angle(1)*M_PI/180),0,cos(euler_angle(1)*M_PI/180);
-    Matrix3d c;
-    c << cos(euler_angle(0)*M_PI/180),sin(euler_angle(0)*M_PI/180),0,
-        -sin(euler_angle(0)*M_PI/180),cos(euler_angle(0)*M_PI/180),0,
-        0,0,1;
-    return a*b*c;    
-}
-
-Vector3d DcmToEulerAngle (const Matrix3d& dcm) { // cnb
-    Vector3d angle;
-    angle << atan2(dcm(1,2),dcm(2,2)) * 180.0 /M_PI,-asin(dcm(0,2))* 180.0 /M_PI,atan2(dcm(0,1),dcm(0,0))* 180.0 /M_PI;
-    return angle; // roll ,pitch ,yaw.
-}
-
-Quaterniond DcmToQuater (const Matrix3d& dcm) {
-    double q0 = 0.5*std::sqrt(1 + dcm(0,0)+dcm(1,1) + dcm(2,2));
-    return Quaterniond(q0,
-                       0.25/q0 * (dcm(2,1) - dcm(1,2)),
-                       0.25/q0 * (dcm(0,2) - dcm(2,0)),
-                       0.25/q0 * (dcm(1,0) - dcm(0,1)));
-}
-
-Matrix3d QuaToDcm(const Quaterniond& q) {
-    Matrix3d dcm;
-    dcm << q.w() * q.w() + q.x() * q.x() - q.y() * q.y() - q.z() * q.z(),2*(q.x()*q.y()-q.w()*q.z()),2*(q.x()*q.z() + q.w()*q.y()),
-          2*(q.x()*q.y()+q.w()*q.z()),q.w() * q.w() - q.x() * q.x() + q.y() * q.y() - q.z() * q.z(),2*(q.y()*q.z() - q.w()*q.x()),
-          2*(q.x()*q.z() - q.w()*q.y()),2*(q.y()*q.z() + q.w()*q.x()),q.w() * q.w() - q.x() * q.x() - q.y() * q.y() + q.z() * q.z();
-}
 
 struct IMURawData {
     double time;
@@ -430,7 +387,7 @@ void STExtendKalmanFilter(const std::vector<IMURawData>& imu_data,
 int main() {
     //read raw data
     std::ifstream infile;
-    infile.open("/home/mdk/inti_navi/exp3/imu_data.txt");
+    infile.open("./imu_data.txt");
     std::string line;
     std::vector<IMURawData> imu_data_coarse;
     std::vector<IMURawData> imu_data_precise;
@@ -469,7 +426,7 @@ int main() {
     infile.close();
 
     std::ifstream infile_gnss;
-    infile_gnss.open("/home/mdk/inti_navi/exp3/gps_data.txt");
+    infile_gnss.open("./gps_data.txt");
     std::string line_gnss;
     std::vector<GNSSResultData> gnss_result_data;
     while(getline(infile_gnss,line_gnss)) {
@@ -508,7 +465,7 @@ int main() {
     Matrix3d rot = EulerAngleToRotion(euler_angle); //cnb
     state.cbn = rot.transpose();
     std::ofstream outfile;
-    outfile.open("/home/mdk/inti_navi/exp3/zuhe_pos_vel_yaw1.txt",std::ios::out | std::ios::trunc);
+    outfile.open("./zuhe_pos_vel_yaw1.txt",std::ios::out | std::ios::trunc);
 
     //integrated navigation
     FliterState error_state;
