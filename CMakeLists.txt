@@ -9,10 +9,8 @@ if(COMPILER_SUPPORTS_CXX11)
    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11" )
 endif()
 # 添加Eigen头文件
-include_directories( "/usr/include/eigen3" )
+find_package(Eigen3)
+include_directories(${EIGEN3_INCLUDE_DIR})
+# include_directories( "/usr/include/eigen3" )
 
-# in osx and brew install
-# include_directories( /usr/local/Cellar/eigen/3.3.3/include/eigen3 )
-
-
-add_executable(couple couple.cpp)
+add_executable(estimator estimator.cpp rotation.cpp)

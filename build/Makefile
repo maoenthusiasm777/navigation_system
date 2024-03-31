@@ -48,10 +48,10 @@ RM = /usr/local/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/mdk/inti_navi/exp3
+CMAKE_SOURCE_DIR = /home/mdk/inti_navi/st_ekf_proj
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/mdk/inti_navi/exp3/build
+CMAKE_BINARY_DIR = /home/mdk/inti_navi/st_ekf_proj/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mdk/inti_navi/exp3/build/CMakeFiles /home/mdk/inti_navi/exp3/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mdk/inti_navi/st_ekf_proj/build/CMakeFiles /home/mdk/inti_navi/st_ekf_proj/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/mdk/inti_navi/exp3/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/mdk/inti_navi/st_ekf_proj/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,84 +111,71 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named couple
+# Target rules for targets named estimator
 
 # Build rule for target.
-couple: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 couple
-.PHONY : couple
+estimator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 estimator
+.PHONY : estimator
 
 # fast build rule for target.
-couple/fast:
-	$(MAKE) -f CMakeFiles/couple.dir/build.make CMakeFiles/couple.dir/build
-.PHONY : couple/fast
+estimator/fast:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/build
+.PHONY : estimator/fast
 
-#=============================================================================
-# Target rules for targets named exp3
+estimator.o: estimator.cpp.o
 
-# Build rule for target.
-exp3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 exp3
-.PHONY : exp3
-
-# fast build rule for target.
-exp3/fast:
-	$(MAKE) -f CMakeFiles/exp3.dir/build.make CMakeFiles/exp3.dir/build
-.PHONY : exp3/fast
-
-couple.o: couple.cpp.o
-
-.PHONY : couple.o
+.PHONY : estimator.o
 
 # target to build an object file
-couple.cpp.o:
-	$(MAKE) -f CMakeFiles/couple.dir/build.make CMakeFiles/couple.dir/couple.cpp.o
-.PHONY : couple.cpp.o
+estimator.cpp.o:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/estimator.cpp.o
+.PHONY : estimator.cpp.o
 
-couple.i: couple.cpp.i
+estimator.i: estimator.cpp.i
 
-.PHONY : couple.i
+.PHONY : estimator.i
 
 # target to preprocess a source file
-couple.cpp.i:
-	$(MAKE) -f CMakeFiles/couple.dir/build.make CMakeFiles/couple.dir/couple.cpp.i
-.PHONY : couple.cpp.i
+estimator.cpp.i:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/estimator.cpp.i
+.PHONY : estimator.cpp.i
 
-couple.s: couple.cpp.s
+estimator.s: estimator.cpp.s
 
-.PHONY : couple.s
+.PHONY : estimator.s
 
 # target to generate assembly for a file
-couple.cpp.s:
-	$(MAKE) -f CMakeFiles/couple.dir/build.make CMakeFiles/couple.dir/couple.cpp.s
-.PHONY : couple.cpp.s
+estimator.cpp.s:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/estimator.cpp.s
+.PHONY : estimator.cpp.s
 
-exp3.o: exp3.cpp.o
+rotation.o: rotation.cpp.o
 
-.PHONY : exp3.o
+.PHONY : rotation.o
 
 # target to build an object file
-exp3.cpp.o:
-	$(MAKE) -f CMakeFiles/exp3.dir/build.make CMakeFiles/exp3.dir/exp3.cpp.o
-.PHONY : exp3.cpp.o
+rotation.cpp.o:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.o
+.PHONY : rotation.cpp.o
 
-exp3.i: exp3.cpp.i
+rotation.i: rotation.cpp.i
 
-.PHONY : exp3.i
+.PHONY : rotation.i
 
 # target to preprocess a source file
-exp3.cpp.i:
-	$(MAKE) -f CMakeFiles/exp3.dir/build.make CMakeFiles/exp3.dir/exp3.cpp.i
-.PHONY : exp3.cpp.i
+rotation.cpp.i:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.i
+.PHONY : rotation.cpp.i
 
-exp3.s: exp3.cpp.s
+rotation.s: rotation.cpp.s
 
-.PHONY : exp3.s
+.PHONY : rotation.s
 
 # target to generate assembly for a file
-exp3.cpp.s:
-	$(MAKE) -f CMakeFiles/exp3.dir/build.make CMakeFiles/exp3.dir/exp3.cpp.s
-.PHONY : exp3.cpp.s
+rotation.cpp.s:
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.s
+.PHONY : rotation.cpp.s
 
 # Help Target
 help:
@@ -198,14 +185,13 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... couple"
-	@echo "... exp3"
-	@echo "... couple.o"
-	@echo "... couple.i"
-	@echo "... couple.s"
-	@echo "... exp3.o"
-	@echo "... exp3.i"
-	@echo "... exp3.s"
+	@echo "... estimator"
+	@echo "... estimator.o"
+	@echo "... estimator.i"
+	@echo "... estimator.s"
+	@echo "... rotation.o"
+	@echo "... rotation.i"
+	@echo "... rotation.s"
 .PHONY : help
 
 

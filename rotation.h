@@ -1,6 +1,8 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
+using namespace Eigen;
+
 Matrix3d CrossMat(const Vector3d& vec);
 
 Matrix3d EulerAngleToRotion (const Vector3d& euler_angle);
