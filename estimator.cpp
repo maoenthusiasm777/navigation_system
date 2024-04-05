@@ -29,12 +29,6 @@ void ExtendKalmanFilter::Predict(
                 const Matrix<double,15,15>& Q) {
     error_state_ = F * error_state_;
     p_ = F * p_ * F.transpose() + Q;
-    std::ofstream outfile;
-    outfile.open("/home/mdk/inti_navi/st_ekf_proj/zuhe_pos_vel_yaw2.txt",std::ios::out | std::ios::app);
-    outfile << p_ << std::endl;
-    outfile << "......." << std::endl;
-    outfile << error_state_ << std::endl;
-    outfile.close();
 }
 
 void ExtendKalmanFilter::Update(
@@ -104,7 +98,6 @@ void IntegratedNavigation::STExtendKalmanFilter(
          navigation_state_.lat - gnss_data.lat;
          navigation_state_.longitude - gnss_data.longitude;
          navigation_state_.h - gnss_data.height;
-    
     // stekf
     ekf_.Process(F,Q,Z,H,Rk);
 
@@ -283,27 +276,27 @@ Matrix<double,15,15> IntegratedNavigation::ConstructAMat(const Matrix3d& cross_v
     const double& vn = navigation_state_.vn;
 
     Matrix<double,3,3> A12;
-    A12 << 0,1.0/re,0,
-           - 1.0 / rn,0,0,
-           0,-tan(latitude) / re,0;
+    A12 << 0.0,1.0/re,0.0,
+           - 1.0 / rn,0.0,0.0,
+           0.0,-tan(latitude) / re,0.0;
 
     Matrix<double,3,3> A11;
-    A11 << 0, 
+    A11 << 0.0, 
     -(omega * sin(latitude) + ve / re * tan(latitude)),
     vn / rn,
     (omega * sin(latitude) + ve / re * tan(latitude)),
-    0,
+    0.0,
     (omega * cos(latitude) + ve / re),
     - vn / rn, 
     -(omega * cos(latitude) + ve / re),
-    0;
+    0.0;
     A11 += A12 * cross_vn;
     
     Matrix<double,3,3> A13;
-    A13 << -omega * sin(latitude),0, -ve / re / re,
-           0,0,vn / rn / rn,
-           -(omega * cos(latitude) + ve / re) /cos(latitude) /cos(latitude),
-           0,ve * tan(latitude) / re / re;
+    A13 << -omega * sin(latitude),0.0, -ve / re / re,
+           0.0,0.0,vn / rn / rn,
+           -(omega * cos(latitude) + ve / re /cos(latitude) /cos(latitude)),
+           0.0,ve * tan(latitude) / re / re;
     
     Matrix<double,3,3> A21;
     A21 = -(CrossMat(gn) + cross_vn * CrossMat(Vector3d(omega*cos(latitude),0,-omega*sin(latitude))));
@@ -312,19 +305,19 @@ Matrix<double,15,15> IntegratedNavigation::ConstructAMat(const Matrix3d& cross_v
     A22 = -(2.0 * CrossMat(Vector3d(omega*cos(latitude),0,-omega*sin(latitude))) + CrossMat(Vector3d(ve / re,-vn / rn,-ve * tan(latitude) / re)));
 
     Matrix<double,3,3>  A23;
-    A23 << -omega * sin(latitude),0,0,
-            0,0,0,
-            -omega * cos(latitude),0,0;
+    A23 << -omega * sin(latitude),0.0,0.0,
+            0.0,0.0,0.0,
+            -omega * cos(latitude),0.0,0.0;
     A23 = cross_vn * A23;
 
     Matrix<double,3,3>  A32;
-    A32 << 1.0 / rn,0,0,
-           0,1.0/ re / cos(latitude),0,
-           0,0,-1.0;
+    A32 << 1.0 / rn,0.0,0.0,
+           0,1.0/ re / cos(latitude),0.0,
+           0.0,0.0,-1.0;
     Matrix<double,3,3>  A33;
-    A33 << 0,0,-vn / rn / rn,
-           ve * tan(latitude) / re / cos(latitude), 0 ,-ve / re / re / cos(latitude),
-           0,0,0;
+    A33 << 0.0,0.0,-vn / rn / rn,
+           ve * tan(latitude) / re / cos(latitude), 0.0 ,-ve / re / re / cos(latitude),
+           0.0,0.0,0.0;
     Matrix<double,3,3>  A31;
     A31 = A32 * cross_vn;
 
@@ -355,7 +348,7 @@ Matrix<double,15,15> IntegratedNavigation::ConstructQMat(
     G.block(3,0,3,3) = cross_vn * navigation_state_.cbn;
     G.block(3,3,3,3) = navigation_state_.cbn;
 
-    Matrix<double,6,6> Q0;
+    Matrix<double,6,6> Q0 =  MatrixXd::Zero(6,6);
     Q0(0,0) = 2.3639e-12;
     Q0(1,1) = 2.3639e-12;
     Q0(2,2) = 2.3639e-12;

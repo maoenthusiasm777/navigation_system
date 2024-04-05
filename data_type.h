@@ -44,9 +44,9 @@ class NavigationState {       // as a node in optimization
        pitch = cbn.transpose().eulerAngles(2,1,0)[1]* 180 / M_PI;
        roll = cbn.transpose().eulerAngles(2,1,0)[2]* 180 / M_PI;
     }
-    double roll;
-    double pitch;
-    double yaw;
+    double roll = 0.0;
+    double pitch = 0.0;
+    double yaw = 0.0;
 
     double vn = 0.0;
     double ve = 0.0;
