@@ -21,8 +21,6 @@ static double g=9.7803267711905*(1+0.00193185138639*(sin(Lat0))*(sin(Lat0)))
 
 //  ENU coordinate system.
 Vector3d gn(0,0,g);
-// From odometry frame to body system.
-Matrix3d cmb;
 
 void ExtendKalmanFilter::Predict(
                 const Matrix<double,15,15>& F,
@@ -69,7 +67,8 @@ void IntegratedNavigation::Process(
           ++kk;
           outfile << std::setprecision(10) << navigation_state_.lat << " " << navigation_state_.longitude << " " 
                   << navigation_state_.vn << " " << navigation_state_.ve << " " << navigation_state_.vd << " " <<
-                   DcmToEulerAngle(navigation_state_.cbn.transpose())(2)<< std::endl;
+                   DcmToEulerAngle(navigation_state_.cbn.transpose())(2) << " " <<navigation_state_.xn(0)
+                   << " " << navigation_state_.xn(1) << std::endl;
       } else {
           DR({imu_data_sins[i],imu_data_sins[i+1]});
       }
@@ -216,8 +215,8 @@ void IntegratedNavigation::DR(
            const std::vector<IMURawData>& imu_data) {
     Vector3d v_odo_1(imu_data[0].odo_vel,0,0);
     Vector3d v_odo_2(imu_data[1].odo_vel,0,0);
-    Vector3d vn1 = navigation_state_.cbn * cmb * v_odo_1;
-    Vector3d vn2 = navigation_state_.cbn * cmb * v_odo_2; 
+    Vector3d vn1 = navigation_state_.cbn * cmb_ * v_odo_1;
+    Vector3d vn2 = navigation_state_.cbn * cmb_ * v_odo_2; 
     Vector3d v_new = (vn1 + vn2) / 2;
     //update velocity
     navigation_state_.vn = v_new(0);
@@ -434,14 +433,6 @@ void ReadData(std::vector<IMURawData>* imu_data_coarse,
     std::cout << "size " << imu_data_sins->size() << gnss_result_data->size() << std::endl;
 }
 
-void SetCmb() {
-    // set cmb
-    cmb << 1,7e-3,0,
-        -7e-3,1,0,
-        0,0,1;
-    cmb = -1.007 * cmb;
-}
-
 void Estimator(
     const std::vector<IMURawData>& imu_data_coarse,
     const std::vector<IMURawData>& imu_data_precise,
@@ -464,7 +455,6 @@ int main() {
     std::vector<IMURawData> imu_data_sins;
     std::vector<GNSSResultData> gnss_result_data;
     ReadData(&imu_data_coarse, &imu_data_precise, &imu_data_sins, &gnss_result_data);
-    SetCmb();
     Estimator(imu_data_coarse, imu_data_precise,imu_data_sins,gnss_result_data);
     return 0;
 }

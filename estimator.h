@@ -48,7 +48,13 @@ class ExtendKalmanFilter {
 class IntegratedNavigation {
  public:
   IntegratedNavigation(const Matrix3d& cbn0,double lat0,double long0,double h0): 
-                      navigation_state_(cbn0, lat0, long0, h0) {}
+                      navigation_state_(cbn0, lat0, long0, h0) {
+      // set cmb
+      cmb_ << 1,7e-3,0,
+        -7e-3,1,0,
+        0,0,1;
+      cmb_ = -1.007 * cmb_;
+  }
   
   virtual ~IntegratedNavigation() = default;
   void Process(const std::vector<IMURawData>& imu_data_sins,
@@ -73,4 +79,6 @@ class IntegratedNavigation {
                                   const Matrix3d& cross_vn,
                                   const Matrix<double,15,15>& F);
   ExtendKalmanFilter ekf_;
+  // From odometry frame to body system.
+  Matrix3d cmb_;
 };

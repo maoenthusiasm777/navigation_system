@@ -57,6 +57,6 @@ class NavigationState {       // as a node in optimization
     double h;
 
     Matrix3d cbn;
-    Vector3d xn;  //meters
+    Vector3d xn = Vector3d(0,0,0);  //meters
     Quaterniond qbn;
 };
