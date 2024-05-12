@@ -1,1 +1,1 @@
-/usr/bin/c++   -std=c++11 -O3 -DNDEBUG  -rdynamic CMakeFiles/estimator.dir/estimator.cpp.o CMakeFiles/estimator.dir/rotation.cpp.o  -o estimator 
+/usr/bin/c++   -std=c++11 -O3 -DNDEBUG  -rdynamic CMakeFiles/estimator.dir/estimator.cpp.o CMakeFiles/estimator.dir/rotation.cpp.o CMakeFiles/estimator.dir/earth_util.cpp.o  -o estimator 

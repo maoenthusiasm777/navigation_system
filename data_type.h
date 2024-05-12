@@ -60,3 +60,19 @@ class NavigationState {       // as a node in optimization
     Vector3d xn = Vector3d(0,0,0);  //meters
     Quaterniond qbn;
 };
+
+struct GNSSRawData {
+    double time_stamp;
+    double sat_nums;
+    struct SatelliteData {
+      int id;
+      Vector3d sat_pos;
+      Vector3d sat_vel;
+      double pseudorange;     // meters
+      double phase;
+      double doppler_shift;
+      double sat_dt;
+      double sat_dtt;
+    };
+    std::vector<SatelliteData> sat_datas;
+};

@@ -13,4 +13,5 @@ find_package(Eigen3)
 include_directories(${EIGEN3_INCLUDE_DIR})
 # include_directories( "/usr/include/eigen3" )
 
-add_executable(estimator estimator.cpp rotation.cpp)
+add_executable(estimator estimator.cpp rotation.cpp earth_util.cpp)
+add_executable(tight_estimator tight_estimator.cpp rotation.cpp earth_util.cpp)

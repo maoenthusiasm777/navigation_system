@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/estimator.dir/estimator.cpp.o"
   "CMakeFiles/estimator.dir/rotation.cpp.o"
+  "CMakeFiles/estimator.dir/earth_util.cpp.o"
   "estimator.pdb"
   "estimator"
 )

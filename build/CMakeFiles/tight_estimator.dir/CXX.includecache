@@ -38,7 +38,17 @@ Eigen/Core
 Eigen/Geometry
 -
 
-/home/mdk/inti_navi/st_ekf_proj/estimator.cpp
+/home/mdk/inti_navi/st_ekf_proj/rotation.cpp
+rotation.h
+/home/mdk/inti_navi/st_ekf_proj/rotation.h
+
+/home/mdk/inti_navi/st_ekf_proj/rotation.h
+Eigen/Core
+-
+Eigen/Geometry
+-
+
+/home/mdk/inti_navi/st_ekf_proj/tight_estimator.cpp
 iostream
 -
 fstream
@@ -53,12 +63,14 @@ iomanip
 -
 rotation.h
 /home/mdk/inti_navi/st_ekf_proj/rotation.h
-estimator.h
-/home/mdk/inti_navi/st_ekf_proj/estimator.h
+tight_estimator.h
+/home/mdk/inti_navi/st_ekf_proj/tight_estimator.h
 constant.h
 /home/mdk/inti_navi/st_ekf_proj/constant.h
+earth_util.h
+/home/mdk/inti_navi/st_ekf_proj/earth_util.h
 
-/home/mdk/inti_navi/st_ekf_proj/estimator.h
+/home/mdk/inti_navi/st_ekf_proj/tight_estimator.h
 Eigen/Core
 -
 Eigen/Geometry
@@ -67,16 +79,6 @@ Eigen/Dense
 -
 data_type.h
 /home/mdk/inti_navi/st_ekf_proj/data_type.h
-
-/home/mdk/inti_navi/st_ekf_proj/rotation.cpp
-rotation.h
-/home/mdk/inti_navi/st_ekf_proj/rotation.h
-
-/home/mdk/inti_navi/st_ekf_proj/rotation.h
-Eigen/Core
--
-Eigen/Geometry
--
 
 /usr/include/eigen3/Eigen/Cholesky
 Core

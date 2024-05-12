@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named tight_estimator
+
+# Build rule for target.
+tight_estimator: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 tight_estimator
+.PHONY : tight_estimator
+
+# fast build rule for target.
+tight_estimator/fast:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/build
+.PHONY : tight_estimator/fast
+
+#=============================================================================
 # Target rules for targets named estimator
 
 # Build rule for target.
@@ -122,6 +135,36 @@ estimator: cmake_check_build_system
 estimator/fast:
 	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/build
 .PHONY : estimator/fast
+
+earth_util.o: earth_util.cpp.o
+
+.PHONY : earth_util.o
+
+# target to build an object file
+earth_util.cpp.o:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/earth_util.cpp.o
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/earth_util.cpp.o
+.PHONY : earth_util.cpp.o
+
+earth_util.i: earth_util.cpp.i
+
+.PHONY : earth_util.i
+
+# target to preprocess a source file
+earth_util.cpp.i:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/earth_util.cpp.i
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/earth_util.cpp.i
+.PHONY : earth_util.cpp.i
+
+earth_util.s: earth_util.cpp.s
+
+.PHONY : earth_util.s
+
+# target to generate assembly for a file
+earth_util.cpp.s:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/earth_util.cpp.s
+	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/earth_util.cpp.s
+.PHONY : earth_util.cpp.s
 
 estimator.o: estimator.cpp.o
 
@@ -156,6 +199,7 @@ rotation.o: rotation.cpp.o
 
 # target to build an object file
 rotation.cpp.o:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/rotation.cpp.o
 	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.o
 .PHONY : rotation.cpp.o
 
@@ -165,6 +209,7 @@ rotation.i: rotation.cpp.i
 
 # target to preprocess a source file
 rotation.cpp.i:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/rotation.cpp.i
 	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.i
 .PHONY : rotation.cpp.i
 
@@ -174,8 +219,36 @@ rotation.s: rotation.cpp.s
 
 # target to generate assembly for a file
 rotation.cpp.s:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/rotation.cpp.s
 	$(MAKE) -f CMakeFiles/estimator.dir/build.make CMakeFiles/estimator.dir/rotation.cpp.s
 .PHONY : rotation.cpp.s
+
+tight_estimator.o: tight_estimator.cpp.o
+
+.PHONY : tight_estimator.o
+
+# target to build an object file
+tight_estimator.cpp.o:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/tight_estimator.cpp.o
+.PHONY : tight_estimator.cpp.o
+
+tight_estimator.i: tight_estimator.cpp.i
+
+.PHONY : tight_estimator.i
+
+# target to preprocess a source file
+tight_estimator.cpp.i:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/tight_estimator.cpp.i
+.PHONY : tight_estimator.cpp.i
+
+tight_estimator.s: tight_estimator.cpp.s
+
+.PHONY : tight_estimator.s
+
+# target to generate assembly for a file
+tight_estimator.cpp.s:
+	$(MAKE) -f CMakeFiles/tight_estimator.dir/build.make CMakeFiles/tight_estimator.dir/tight_estimator.cpp.s
+.PHONY : tight_estimator.cpp.s
 
 # Help Target
 help:
@@ -185,13 +258,20 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... tight_estimator"
 	@echo "... estimator"
+	@echo "... earth_util.o"
+	@echo "... earth_util.i"
+	@echo "... earth_util.s"
 	@echo "... estimator.o"
 	@echo "... estimator.i"
 	@echo "... estimator.s"
 	@echo "... rotation.o"
 	@echo "... rotation.i"
 	@echo "... rotation.s"
+	@echo "... tight_estimator.o"
+	@echo "... tight_estimator.i"
+	@echo "... tight_estimator.s"
 .PHONY : help
 
 

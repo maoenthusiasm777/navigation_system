@@ -7,20 +7,9 @@
 
 #include "rotation.h"
 #include "estimator.h"
+#include "constant.h"
 
-static double omega = 7.292115 * 1E-5;   // rad / s
-static double R = 6378137.0;             // meters
-static double e = 0.0818191908426;
-static double Lat0= 0.492538083125361;   // rad 
-static double Long0 = 1.972094934421829; // rad
-static double H0 = 50.385756076313555;
-static double RN = R*(1-e*e)/std::pow(1-e*e*(sin(Lat0))*(sin(Lat0)),3/2); // meters
-static double RE = R/std::sqrt((1-e*e*(sin(Lat0))*(sin(Lat0))));   // meters
-static double g=9.7803267711905*(1+0.00193185138639*(sin(Lat0))*(sin(Lat0)))
-               / sqrt(1-0.00669437999031*(sin(Lat0))*(sin(Lat0))) / (1 + H0 / R) / (1 + H0 / R); // m * s^-2
-
-//  ENU coordinate system.
-Vector3d gn(0,0,g);
+Vector3d gn = Vector3d(0,0,g);
 
 void ExtendKalmanFilter::Predict(
                 const Matrix<double,15,15>& F,
